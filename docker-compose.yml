@@ -29,7 +29,8 @@ services:
     env_file:
       - .env
     environment:
-      DATABASE_URL: ${DATABASE_URL}
+      # Host must be the Compose service name "db", not localhost/postgres
+      DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB:-home_dashboard}
       API_KEY: ${API_KEY}
       REDIS_URL: ${REDIS_URL:-}
       TZ: ${TZ:-UTC}
